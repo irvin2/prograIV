@@ -75,18 +75,6 @@ if ($.trim($('#txtcod').val())==''){
    return false;
    }
 
-   if ($.trim($('#txtmuni').val())==''){           
-   alert('Ingresa el municipio');
-   $('#txtmuni').focus();
-   return false;
-   }
-
-   if ($.trim($('#txtdepa').val())==''){           
-   alert('Ingresa el departamento');
-   $('#txtedad').focus();
-   return false;
-   }
-
    if ($.trim($('#txttel').val())==''){            
    alert('Ingresa el teléfono');
    $('#txttel').focus();
