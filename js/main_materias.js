@@ -2,51 +2,53 @@ $(document).ready(function(){
     $('#btnSave').hide();
      $('#txtnombre').focus();   
    var fila_borrar=-1;
-   var MisMaterias = localStorage.getItem("MisMaterias");
-   MisMaterias = JSON.parse(MisMaterias);
-   if(MisMaterias == null){ 
-       MisMaterias = [];
+   var MisAlumnos = localStorage.getItem("MisAlumnos");
+   MisAlumnos = JSON.parse(MisAlumnos);
+   if(MisAlumnos == null){ 
+       MisAlumnos = [];
    }else{
-       MostrarMaterias();
+       MostrarAlumnos();
    }
    $('#btnAdd').click(function(){
-           AddMaterias();
+           AddStudents();
    });
    
        $(document).on('click','#btnBorrar',function(){                         
                        fila_borrar = parseInt($(this).attr("alt")); 
-                       MisMaterias.splice(fila_borrar, 1); 
-                       localStorage.setItem("MisMaterias", JSON.stringify(MisMaterias));
-                       alert("Materia Eliminada");                                  
-                       MostrarMaterias();               
+                       MisAlumnos.splice(fila_borrar, 1); 
+                       localStorage.setItem("MisAlumnos", JSON.stringify(MisAlumnos));
+                       alert("Registro de Alumno Eliminado");                                  
+                       MostrarAlumnos();               
        });
       
        $(document).on('click','#btnEditar',function(){ 
                    $('#btnAdd').hide();
                    fila_borrar=parseInt($(this).attr('alt'));
-                   var materias = JSON.parse(MisMaterias[fila_borrar]); 
-                   $("#txtcod").val(materias.codigo);
-                   $("#txtnombre").val(materias.nombre);
-                   $("#txtdocente").val(materias.docente);
+                   var studiante = JSON.parse(MisAlumnos[fila_borrar]); 
+                   $("#txtcod").val(studiante.codigo);
+                   $("#txtnombre").val(studiante.nombre);
+                   $("#txtdireccion").val(studiante.direccion);
+                   $("#txtzona").val(studiante.zona);
                     $('#btnSave').show();                                               
            
        });
        $('#btnSave').click(function(){
            $('#btnAdd').show();
-                           MisMaterias [fila_borrar]= JSON.stringify({ 
+                           MisAlumnos [fila_borrar]= JSON.stringify({ 
                            codigo : $("#txtcod").val(),
                            nombre : $("#txtnombre").val(),
-                           direccion : $("#txtdocente").val(),
+                           direccion : $("#txtdireccion").val(),
+                           zona : $("#txtzona").val(),
                        });
-                       localStorage.setItem("MisMaterias", JSON.stringify(MisMaterias));
-                       alert("Registro Actualizado");
+                       localStorage.setItem("MisAlumnos", JSON.stringify(MisAlumnos));
+                       alert("Registro de Alumno Actualizado");
                         $('#btnSave').hide(); 
                         $('input').val(''); 
                            $('#txtnombre').focus();                        
-                       MostrarMaterias();
+                       MostrarAlumnos();
        });
 
-function AddMaterias(){
+function AddStudents(){
 if ($.trim($('#txtcod').val())==''){            
                alert('Ingresa el codigo');
                $('#txtcod').focus();
@@ -59,31 +61,41 @@ if ($.trim($('#txtcod').val())==''){
        return false;
    }
 
-   if ($.trim($('#txtdocente').val())==''){          
-   alert('Ingresa el nombre del docente');
-   $('#txtdocente').focus();
+   if ($.trim($('#txtdireccion').val())==''){          
+   alert('Ingresa la direccion');
+   $('#txtdireccion').focus();
    return false;
    }
-var materias = JSON.stringify({       
+
+   if ($.trim($('#txtzona').val())==''){            
+   alert('Ingresa la zona');
+   $('#txtzona').focus();
+   return false;
+   }
+
+   
+   
+var students = JSON.stringify({       
    codigo : $("#txtcod").val(),
    nombre : $("#txtnombre").val(),
-   docente : $("#txtdocente").val(),
+   direccion : $("#txtdireccion").val(),
+   zona: $("#txtzona").val(),
 });
 
-MisMaterias.push(materias);
-localStorage.setItem("MisMaterias", JSON.stringify(MisMaterias));
-alert("Materia Registrada con Exito");
+MisAlumnos.push(students);
+localStorage.setItem("MisAlumnos", JSON.stringify(MisAlumnos));
+alert("Cliente Registrado con Exito");
 $('input').val('');
 $('#txtnombre').focus();
-MostrarMaterias();
+MostrarAlumnos();
 }
 
-function MostrarMaterias()   {
-$('#tblMAterias tr:not(:first)').remove();
-       for(var i in MisMaterias)
+function MostrarAlumnos()   {
+$('#tblStudents tr:not(:first)').remove();
+       for(var i in MisAlumnos)
        {
-           var con = JSON.parse(MisMaterias[i]);
-       $('#tblMaterias tr:last').after('<tr><td>'+con.codigo+'</td><td>'+con.nombre+'</td><td>'+con.docente+'<button id="btnBorrar" alt="'+i+'" class="btn btn-danger btn-sm">Borrar</button>   <button id="btnEditar" alt="'+ i +'" class="btn btn-info btn-sm">Seleccionar</button>'+'</td></tr>');
+           var con = JSON.parse(MisAlumnos[i]);
+       $('#tblStudents tr:last').after('<tr><td>'+con.codigo+'</td><td>'+con.nombre+'</td><td>'+con.direccion+'</td><td>'+con.zona+'<button id="btnBorrar" alt="'+i+'" class="btn btn-danger btn-sm">Borrar</button>   <button id="btnEditar" alt="'+ i +'" class="btn btn-info btn-sm">Seleccionar</button>'+'</td></tr>');
        }
 }
 

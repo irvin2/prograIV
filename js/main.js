@@ -28,11 +28,7 @@ $(document).ready(function(){
                    $("#txtcod").val(studiante.codigo);
                    $("#txtnombre").val(studiante.nombre);
                    $("#txtdireccion").val(studiante.direccion);
-                   $("#txtmuni").val(studiante.municipio);
-                   $("#txtdepa").val(studiante.departamento);
-                   $("#txttel").val(studiante.telefono);
-                   $("#txtnac").val(studiante.fechnacimiento);
-                   $("#txtsex").val(studiante.sexo);
+                   $("#txtzona").val(studiante.zona);
                     $('#btnSave').show();                                               
            
        });
@@ -42,11 +38,7 @@ $(document).ready(function(){
                            codigo : $("#txtcod").val(),
                            nombre : $("#txtnombre").val(),
                            direccion : $("#txtdireccion").val(),
-                           municipio : $("#txtmuni").val(),
-                           departamento : $("#txtdepa").val(),
-                           telefono : $("#txttel").val(),
-                           fechnacimiento : $("#txtnac").val(),
-                           sexo : $("#txtsex").val(),
+                           zona : $("#txtzona").val(),
                        });
                        localStorage.setItem("MisAlumnos", JSON.stringify(MisAlumnos));
                        alert("Registro de Alumno Actualizado");
@@ -75,36 +67,24 @@ if ($.trim($('#txtcod').val())==''){
    return false;
    }
 
-   if ($.trim($('#txttel').val())==''){            
-   alert('Ingresa el teléfono');
-   $('#txttel').focus();
+   if ($.trim($('#txtzona').val())==''){            
+   alert('Ingresa la zona');
+   $('#txtzona').focus();
    return false;
    }
 
-   if ($.trim($('#txtnac').val())==''){            
-   alert('Ingresa la fecha de nacimiento');
-   $('#txtnac').focus();
-   return false;
-   }
-
-   if ($.trim($('#txtsex').val())==''){            
-   alert('Ingresa el sexo');
-   $('#txtsex').focus();
-   return false;
-   }
+   
    
 var students = JSON.stringify({       
    codigo : $("#txtcod").val(),
    nombre : $("#txtnombre").val(),
    direccion : $("#txtdireccion").val(),
-   telefono : $("#txttel").val(),
-   fechnacimiento : $("#txtnac").val(),
-   sexo : $("#txtsex").val(),
+   zona: $("#txtzona").val(),
 });
 
 MisAlumnos.push(students);
 localStorage.setItem("MisAlumnos", JSON.stringify(MisAlumnos));
-alert("Alumno Registrado con Exito");
+alert("Cliente Registrado con Exito");
 $('input').val('');
 $('#txtnombre').focus();
 MostrarAlumnos();
@@ -115,7 +95,7 @@ $('#tblStudents tr:not(:first)').remove();
        for(var i in MisAlumnos)
        {
            var con = JSON.parse(MisAlumnos[i]);
-       $('#tblStudents tr:last').after('<tr><td>'+con.codigo+'</td><td>'+con.nombre+'</td><td>'+con.direccion+'</td><td>'+con.telefono+'</td><td>'+con.fechnacimiento+'</td><td>'+con.sexo+'</td><td>'+'<button id="btnBorrar" alt="'+i+'" class="btn btn-danger btn-sm">Borrar</button>   <button id="btnEditar" alt="'+ i +'" class="btn btn-info btn-sm">Seleccionar</button>'+'</td></tr>');
+       $('#tblStudents tr:last').after('<tr><td>'+con.codigo+'</td><td>'+con.nombre+'</td><td>'+con.direccion+'</td><td>'+con.zona+'<button id="btnBorrar" alt="'+i+'" class="btn btn-danger btn-sm">Borrar</button>   <button id="btnEditar" alt="'+ i +'" class="btn btn-info btn-sm">Seleccionar</button>'+'</td></tr>');
        }
 }
 
